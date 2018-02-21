@@ -13,42 +13,46 @@ public class RewardedVideo : MonoBehaviour {
 
 	private RewardBasedVideoAd rewardBasedVideo;
 
-	void Start () {
+	void Awake(){
 		try{
-		#if UNITY_ANDROID
-		string appId = "ca-app-pub-5538586303013353~5140709220";
-		#elif UNITY_IPHONE
-		string appId = "ca-app-pub-3940256099942544~1458002511";
-		#else
-		string appId = "unexpected_platform";
-		#endif
+			#if UNITY_ANDROID
+			string appId = "ca-app-pub-5538586303013353~5140709220";
+			#elif UNITY_IPHONE
+			string appId = "ca-app-pub-3940256099942544~1458002511";
+			#else
+			string appId = "unexpected_platform";
+			#endif
 
-		// Initialize the Google Mobile Ads SDK.
-		MobileAds.Initialize(appId);
+			// Initialize the Google Mobile Ads SDK.
+			MobileAds.Initialize(appId);
 
 
-		this.rewardBasedVideo = RewardBasedVideoAd.Instance;
+			this.rewardBasedVideo = RewardBasedVideoAd.Instance;
 
-		// Called when an ad request has successfully loaded.
-		rewardBasedVideo.OnAdLoaded += HandleRewardBasedVideoLoaded;
-		// Called when an ad request failed to load.
-		rewardBasedVideo.OnAdFailedToLoad += HandleRewardBasedVideoFailedToLoad;
-		// Called when an ad is shown.
-		rewardBasedVideo.OnAdOpening += HandleRewardBasedVideoOpened;
-		// Called when the ad starts to play.
-		rewardBasedVideo.OnAdStarted += HandleRewardBasedVideoStarted;
-		// Called when the user should be rewarded for watching a video.
-		rewardBasedVideo.OnAdRewarded += HandleRewardBasedVideoRewarded;
-		// Called when the ad is closed.
-		rewardBasedVideo.OnAdClosed += HandleRewardBasedVideoClosed;
-		// Called when the ad click caused the user to leave the application.
-		rewardBasedVideo.OnAdLeavingApplication += HandleRewardBasedVideoLeftApplication;
-
-		this.RequestRewardedVideo ();
-		}
+			// Called when an ad request has successfully loaded.
+			rewardBasedVideo.OnAdLoaded += HandleRewardBasedVideoLoaded;
+			// Called when an ad request failed to load.
+			rewardBasedVideo.OnAdFailedToLoad += HandleRewardBasedVideoFailedToLoad;
+			// Called when an ad is shown.
+			rewardBasedVideo.OnAdOpening += HandleRewardBasedVideoOpened;
+			// Called when the ad starts to play.
+			rewardBasedVideo.OnAdStarted += HandleRewardBasedVideoStarted;
+			// Called when the user should be rewarded for watching a video.
+			rewardBasedVideo.OnAdRewarded += HandleRewardBasedVideoRewarded;
+			// Called when the ad is closed.
+			rewardBasedVideo.OnAdClosed += HandleRewardBasedVideoClosed;
+			// Called when the ad click caused the user to leave the application.
+			rewardBasedVideo.OnAdLeavingApplication += HandleRewardBasedVideoLeftApplication;
+			}
 			catch{
 			Camera.main.backgroundColor = Color.red;
+		
 			}
+	}
+
+
+	void Start () {
+		this.RequestRewardedVideo ();
 	}
 	
 	public void RequestRewardedVideo()
